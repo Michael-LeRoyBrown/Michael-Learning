@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-%g6sb8wuao27vz8@4a5)%+3e8j5z9q1ou-wy%#l^!&g%5_=u9-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'project_structure.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,3 +139,8 @@ LOGIN_URL = 'users:login'
 # Heroku settings.
 import django_heroku
 django_heroku.settings(locals())
+
+if os.environ.get('DEBUT') == 'True':
+    DEBUG = True
+elif os.environ.get('DEBUG') == 'False':
+    DEBUG = False
